@@ -17,15 +17,14 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  socket.emit('admin', 'Welcome to the chat!');
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
 
-  socket.broadcast.emit('admin', 'A new user has joined');
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
   socket.on('createMessage', (message, callback) => {
-    var time = new Date();
-    console.log('createdMessage', message);
+    console.log('createMessage', message);
     io.emit('newMessage', generateMessage(message.from, message.text));
-    callback("Message is received");
+    callback();
   });
 
   socket.on('createLocationMessage', (coords) => {
@@ -33,14 +32,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('User is disconnected from the server');
+    console.log('User was disconnected');
   });
 });
 
-app.get('/', (req, res) => {
-  res.render('index.html')
-});
-
 server.listen(port, () => {
-  console.log(`App is online on port ${port}`);
+  console.log(`Server is up on ${port}`);
 });
