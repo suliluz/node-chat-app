@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "node server/server.js"
+=======
+    "start": "node server/server.js",
+>>>>>>> a1ada5505fd158695ec72bc342b33404ef65c235
   },
   "engines": {
     "node": "8.3.0"
